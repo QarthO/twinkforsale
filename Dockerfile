@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     python3 \
     make \
     g++ \
+    libc6-compat \
+    vips-dev
     && rm -rf /var/lib/apt/lists/*
 
 COPY . .
