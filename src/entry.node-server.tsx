@@ -54,7 +54,16 @@ const { router, notFound, staticFile } = createQwikCity({
   static: {
     cacheControl: "public, max-age=31536000, immutable",
   },
-  origin: process.env.BASE_URL || "https://twink.forsale",
+  // Use a function to determine origin dynamically from request headers
+  // This allows Traefik and other proxies to work correctly
+  origin: (req) => {
+    const forwardedProto = req.headers["x-forwarded-proto"] || "http";
+    const forwardedHost = req.headers["x-forwarded-host"] || req.headers["host"];
+    if (forwardedHost) {
+      return `${forwardedProto}://${forwardedHost}`;
+    }
+    return process.env.BASE_URL || "https://twink.forsale";
+  },
   // Disable CSRF protection to allow ShareX uploads with null origin
   checkOrigin: false,
 });
