@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     make \
     g++ \
     libc6-compat \
-    vips-dev
+    vips-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . .
