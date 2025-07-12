@@ -95,7 +95,7 @@ export async function getFreeSpace(uploadsPath: string = './uploads'): Promise<n
 }
 
 /**
- * Get disk usage information with diskusage package and fallback
+ * Get disk usage information using fallback method
  * @param uploadsPath - Path to the uploads directory
  * @returns Object containing total, used, and free space in bytes
  */
@@ -105,34 +105,7 @@ export async function getDiskUsage(uploadsPath: string = './uploads'): Promise<{
   free: number;
   usedPercentage: number;
 }> {
-  try {
-    // Try to dynamically import and use diskusage package
-    const diskusage = await import('diskusage');
-    
-    const absolutePath = path.resolve(uploadsPath);
-    
-    // Ensure the directory exists
-    if (!fs.existsSync(absolutePath)) {
-      fs.mkdirSync(absolutePath, { recursive: true });
-    }
-
-    // Use diskusage to check disk usage
-    const info = await diskusage.default.check(absolutePath);
-    const { total, free } = info;
-    const used = total - free;
-    const usedPercentage = total > 0 ? (used / total) * 100 : 0;
-
-    return {
-      total,
-      used,
-      free,
-      usedPercentage
-    };
-  } catch (error) {
-    console.warn('diskusage package not available, using fallback method:', error instanceof Error ? error.message : String(error));
-    // Fall back to built-in Node.js implementation
-    return getDiskUsageFallback(uploadsPath);
-  }
+  return getDiskUsageFallback(uploadsPath);
 }
 
 /**
