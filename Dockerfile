@@ -1,14 +1,13 @@
 FROM oven/bun:1
 
 WORKDIR /app
-
 # Install system dependencies required for sharp and other native modules
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     python3 \
     make \
     g++ \
-    libc6-compat \
-    vips-dev
+    libvips-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN bun install
 
