@@ -1,4 +1,4 @@
-FROM oven/bun:1
+FROM oven/bun:1.2.15
 
 WORKDIR /app
 # Install system dependencies required for sharp and other native modules
@@ -14,9 +14,7 @@ COPY . .
 
 RUN bun install
 
-RUN bunx prisma generate
-
-RUN bun run build && bun run build.server
+RUN bun run deploy
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
