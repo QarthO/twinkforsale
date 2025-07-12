@@ -8,11 +8,11 @@ services:
       - PORT=3000
       - DATABASE_URL=file:/app/data/prod.db
       # Add your environment variables here or use an .env file
-      - AUTH_SECRET=$AUTH_SECRET
-      - DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID
-      - DISCORD_CLIENT_SECRET=$DISCORD_CLIENT_SECRET
-      - ORIGIN=$ORIGIN
-      - BASE_URL=$BASE_URL
+      - AUTH_SECRET=${AUTH_SECRET}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+      - ORIGIN=${ORIGIN}
+      - BASE_URL=${BASE_URL}
     volumes:
       # Persistent storage for uploads
       - uploads_data:/app/uploads
